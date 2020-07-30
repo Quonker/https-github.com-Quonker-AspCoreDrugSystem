@@ -1,0 +1,35 @@
+﻿@using Web.Models
+@{
+    ViewData["Title"] = "Drug List";
+}
+@model IEnumerable<Drug>
+    <a asp-action="Create">Add Drug</a>
+<h1>List of Drugs</h1>
+<table class="table">
+    <tr>
+        <th>
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.TradenameSort">
+                Tradename
+            </a>
+        </th>
+        <th>
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.PriceSort">
+                Price
+            </a>
+        </th>
+        <th>
+            <a asp-action="Index" asp-route-sortOrder="@ViewBag.CompSort">
+                Company
+            </a>
+        </th>
+        <td>
+            <a asp-action="Details" asp-controller="Drug" asp-route-id="@ViewBag.Id">Details</a> |
+            <a asp-action="Edit" asp-controller="Drug" asp-route-id="@ViewBag.Id">Edit</a> |
+            <a asp-action="Delete" asp-controller="Drug" asp-route-id="@ViewBag.Id">Delete</a>
+        </td>
+    </tr>
+    @foreach (Drug drug in Model)
+    {
+        <tr><td>@drug.Tradename</td><td>@drug.Price</td><td>@drug.Company.Name</td></tr>
+    }
+</table>

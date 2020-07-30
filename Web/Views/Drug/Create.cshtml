@@ -1,0 +1,31 @@
+﻿@model Web.Models.Drug
+@{
+    ViewBag.Title = "Добавление пользователя";
+}
+<form asp-action="create" asp-controller="drug">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div class="form-group row">
+        <label asp-for="Tradename" class="control-label col-12">Tradename</label>
+        <input type="text" asp-for="Tradename" class="form-control col-md-10" />
+        <span asp-validation-for="Tradename" class="text-danger col-md-2"></span>
+    </div>
+    <div class="form-group row">
+        <label asp-for="Price" class="control-label col-12">Price</label>
+        <input type="number" step=".01" asp-for="Price" class="form-control col-md-10" />
+        <span asp-validation-for="Price" class="text-danger col-md-2"></span>
+    </div>
+    <div class="form-group row">
+        <label asp-for="CompanyId" class="control-label col-md-12">Company</label>
+        @Html.DropDownListFor(model => model.CompanyId, ViewBag.Companies as SelectList,new { @class = "form-control col-md-6" }) 
+        <span asp-validation-for="Company" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-10">
+        <input type="submit" value="submit" class="btn btn-success justify-content-xl-center" />
+    </div>
+</form>
+@section scripts{
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
