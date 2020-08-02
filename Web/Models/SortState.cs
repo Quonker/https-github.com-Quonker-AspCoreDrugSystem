@@ -9,8 +9,6 @@ namespace Web.Models
     {
         TradenameAsc,
         TradenameDesc,
-        PriceAsc,
-        PriceDesc,
         CompanyAsc,
         CompanyDesc
     }

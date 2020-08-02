@@ -2,34 +2,99 @@
 @{
     ViewData["Title"] = "Drug List";
 }
-@model IEnumerable<Drug>
-    <a asp-action="Create">Add Drug</a>
-<h1>List of Drugs</h1>
+@model IndexViewModel
+<style>
+    @@font-face {
+        font-family: 'FontAwesome';
+        src: url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff2') format('woff2'), url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff') format('woff'), url('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/fonts/fontawesome-webfont.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal
+    }
+
+    .glyphicon {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale
+    }
+
+    .glyphicon-chevron-right:before {
+        content: "\f054";
+    }
+
+    .glyphicon-chevron-left:before {
+        content: "\f053";
+    }
+</style>
+<a asp-action="Create">Add Drug</a>
+<h1>Drug List</h1>
+
+<form method="get">
+    <div class="form-inline">
+        <label >Tradename: </label>
+        <input name="name" value="@Model.FilterViewModel.SelectedName" class="form-control" style="margin: 10px ;" />
+
+        <label>Компания: </label>
+        <select name="company" asp-items="Model.FilterViewModel.Companies" class="form-control" style="margin: 10px;"></select>
+
+        <input type="submit" value="Фильтр" class="btn btn-outline-dark" />
+    </div>
+</form>
+
 <table class="table">
+
     <tr>
         <th>
-            <a asp-action="Index" asp-route-sortOrder="@ViewBag.TradenameSort">
-                Tradename
-            </a>
+            <a asp-action="Index"
+               asp-route-sortOrder="@(Model.SortViewModel.TradenameSort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)"
+               asp-route-company="@(Model.FilterViewModel.SelectedCompany)">Tradename</a>
         </th>
+
         <th>
-            <a asp-action="Index" asp-route-sortOrder="@ViewBag.PriceSort">
-                Price
-            </a>
+            <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.CompanySort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)"
+               asp-route-company="@(Model.FilterViewModel.SelectedCompany)">Company</a>
         </th>
-        <th>
-            <a asp-action="Index" asp-route-sortOrder="@ViewBag.CompSort">
-                Company
-            </a>
-        </th>
-        <td>
-            <a asp-action="Details" asp-controller="Drug" asp-route-id="@ViewBag.Id">Details</a> |
-            <a asp-action="Edit" asp-controller="Drug" asp-route-id="@ViewBag.Id">Edit</a> |
-            <a asp-action="Delete" asp-controller="Drug" asp-route-id="@ViewBag.Id">Delete</a>
-        </td>
     </tr>
-    @foreach (Drug drug in Model)
+    @foreach (Drug d in Model.Drugs)
     {
-        <tr><td>@drug.Tradename</td><td>@drug.Price</td><td>@drug.Company.Name</td></tr>
+        <tr>
+    
+            <td><a asp-action="Details" asp-controller="Drug" asp-route-id="@d.Id">@d.Tradename</a></td>
+            
+            <td>@d.Company.Name</td>
+            <td class="text-right" style="padding-left:0;">
+                <a asp-action="Edit" asp-controller="Drug" asp-route-id="@d.Id">Edits</a> 
+                <a asp-action="Delete" asp-controller="Drug" asp-route-id="@d.Id" class="text-danger">Delete</a>
+                
+            </td>
+        </tr>
     }
 </table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       asp-route-name="@(Model.FilterViewModel.SelectedName)"
+       asp-route-company="@(Model.FilterViewModel.SelectedCompany)"
+       asp-route-sortorder="@(Model.SortViewModel.Current)"
+       class="btn  btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Return
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       asp-route-name="@(Model.FilterViewModel.SelectedName)"
+       asp-route-company="@(Model.FilterViewModel.SelectedCompany)"
+       asp-route-sortorder="@(Model.SortViewModel.Current)"
+       class="btn btn-outline-dark">
+        Next
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}
