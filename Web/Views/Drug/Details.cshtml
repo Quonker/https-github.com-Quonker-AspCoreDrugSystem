@@ -3,29 +3,24 @@
     ViewBag.Title = Model.Tradename;
 }
 <h2>Drug: @Model.Tradename</h2>
-<div>
+<div class="row">
+    <div class="col-md-4">
+        <img src="@Model.Path" class="card-img " style="max-height: 400px; max-width: 400px;" />
+    </div>
 
-    <img src="@Model.UmageUrl" class="card-img " />
+    <div class="col-md-8">
 
+        <dl class="dl-horizontal">
+            <dt>Tradename</dt>
+            <dd>@Model.Tradename</dd>
 
+            <dt>Company</dt>
+            <dd>@Model.Company.Name</dd>
 
-    <dl class="dl-horizontal">
-        <dt>Tradename</dt>
-        <dd>@Model.Tradename</dd>
+            <dt>Description</dt>
+            <dd>@Model.Description</dd>
 
-        <dt>Company</dt>
-        <dd>@Model.Company.Name</dd>
-
-    </dl>
-
-
-    <dl class="dl-horizontal">
-        <dt>Description</dt>
-        <dd>@Model.Description</dd>
-
-
-
-    </dl>
-
+        </dl>
+    </div>
 
 </div>

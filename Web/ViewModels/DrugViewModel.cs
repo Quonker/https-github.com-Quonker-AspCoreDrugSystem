@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Web.ViewModels
 
         // New
         //  [Required(ErrorMessage = "Url of picture not specified")]
-        public string UmageUrl { get; set; }
+        public string Path { get; set; }
    
         public string Description { get; set; }
        

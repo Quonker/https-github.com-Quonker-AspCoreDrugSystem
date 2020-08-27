@@ -1,8 +1,8 @@
 ﻿@model Web.ViewModels.DrugViewModel
 @{
-    ViewBag.Title = "Редактирование пользователя";
+    ViewBag.Title = "Edit Drug";
 }
-    <form asp-action="edit" asp-controller="drug" asp-route-id="@Model.Id">
+    <form asp-action="edit" asp-controller="drug" asp-route-id="@Model.Id" enctype="multipart/form-data">
         <div class="validation" asp-validation-summary="ModelOnly"></div>
         <div class="form-group row">
             <label asp-for="Tradename" class="control-label col-12">Tradename</label>
@@ -19,9 +19,11 @@
 
 
         <div class="form-group row">
-            <label asp-for="UmageUrl" class="control-label col-12">Image URL</label>
-            <input type="url" asp-for="UmageUrl" class="form-control col-md-10" />
-            <span asp-validation-for="UmageUrl" class="text-danger col-md-2"></span>
+            <label class="control-label col-12">Picture</label>
+            <img src="@Model.Path" class="card-img col-md-3"   style="padding-bottom: 10px; max-height: 300px; max-width: 300px;" />
+            <div class="col-md-8"> </div>
+            <input type="file" name="file" class="" />
+            <span class="text-danger col-md-2"></span>
         </div>
 
         <div class="form-group row">

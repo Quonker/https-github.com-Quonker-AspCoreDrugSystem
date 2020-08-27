@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -16,12 +19,13 @@ namespace Web.Controllers
     {
         DrugContext db;
         private readonly IMapper _mapper;
+        IWebHostEnvironment _appEnvironment;
 
-
-        public DrugController(DrugContext db, IMapper mapper)
+        public DrugController(DrugContext db, IMapper mapper, IWebHostEnvironment appEnvironment)
         {
             this.db = db;
             _mapper = mapper;
+            _appEnvironment = appEnvironment;
         }
 
         public async Task<IActionResult> Index(int? company, string name, int page = 1,
@@ -83,12 +87,22 @@ namespace Web.Controllers
         }
         // [Authorize(Roles = "administrator")]
         [HttpPost]
-        public async Task<IActionResult> Create(DrugViewModel drugView)
+        public async Task<IActionResult> Create(DrugViewModel drugView, IFormFile file)
         {
-            Drug drug = _mapper.Map<DrugViewModel, Drug>(drugView);
-            db.Drugs.Add(drug);
-            await db.SaveChangesAsync();
-
+            if (file != null)
+            {
+                // путь к папке Files
+                string path = "/Files/" + file.FileName;
+                // сохраняем файл в папку Files в каталоге wwwroot
+                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+                Drug drug = _mapper.Map<DrugViewModel, Drug>(drugView);
+                drug.Path = path;
+                db.Drugs.Add(drug);
+                await db.SaveChangesAsync();
+            }
             return RedirectToAction("Index");
         }
         public async Task<IActionResult> Details(int? id)
@@ -123,10 +137,22 @@ namespace Web.Controllers
             return NotFound();
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(Drug drug)
+        public async Task<IActionResult> Edit(DrugViewModel drugView, IFormFile file)
         {
-            db.Drugs.Update(drug);
-            await db.SaveChangesAsync();
+            if (file != null)
+            {
+                // путь к папке Files
+                string path = "/Files/" + file.FileName;
+                // сохраняем файл в папку Files в каталоге wwwroot
+                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+                Drug drug = _mapper.Map<DrugViewModel, Drug>(drugView);
+                drug.Path = path;
+                db.Drugs.Update(drug);
+                await db.SaveChangesAsync();
+            }
             return RedirectToAction("Index");
         }
 

@@ -18,7 +18,7 @@ namespace Web.Models
 
         // New
       //  [Required(ErrorMessage = "Url of picture not specified")]
-        public string UmageUrl { get; set; }
+        public string Path { get; set; }
         public string Description { get; set; }
      
 

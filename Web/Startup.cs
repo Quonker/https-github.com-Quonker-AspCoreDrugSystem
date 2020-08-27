@@ -31,7 +31,7 @@ namespace Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string connection = "Server=(localdb)\\mssqllocaldb; Database=me1db; Trusted_Connection=true;";
+            string connection = "Server=(localdb)\\mssqllocaldb; Database=me2db; Trusted_Connection=true;";
             services.AddDbContext<DrugContext>(options => options.UseSqlServer(connection));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
