@@ -2,21 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Web.Models;
+using Web.ViewModels;
 
 namespace Web.Controllers
 {
     public class DrugController : Controller
     {
         DrugContext db;
+        private readonly IMapper _mapper;
 
-        public DrugController(DrugContext db)
+
+        public DrugController(DrugContext db, IMapper mapper)
         {
             this.db = db;
+            _mapper = mapper;
         }
 
         public async Task<IActionResult> Index(int? company, string name, int page = 1,
@@ -56,14 +61,14 @@ namespace Web.Controllers
 
             // пагинация
             var count = await drugs.CountAsync();
-            var items = await drugs.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            var items =  _mapper.Map<IEnumerable<DrugViewModel>>(await drugs.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync());
 
             // формируем модель представления
             IndexViewModel viewModel = new IndexViewModel
             {
                 PageViewModel = new PageViewModel(count, page, pageSize),
                 SortViewModel = new SortViewModel(sortOrder),
-                FilterViewModel = new FilterViewModel(db.Companies.ToList(), company, name),
+                FilterViewModel = new FilterViewModel(_mapper.Map<IEnumerable<CompanyViewModel>>(db.Companies).ToList(), company, name),
                 Drugs = items
             };
             return View(viewModel);
@@ -78,8 +83,9 @@ namespace Web.Controllers
         }
         // [Authorize(Roles = "administrator")]
         [HttpPost]
-        public async Task<IActionResult> Create(Drug drug)
+        public async Task<IActionResult> Create(DrugViewModel drugView)
         {
+            Drug drug = _mapper.Map<DrugViewModel, Drug>(drugView);
             db.Drugs.Add(drug);
             await db.SaveChangesAsync();
 
@@ -93,7 +99,8 @@ namespace Web.Controllers
                 if (drug != null)
                 {
                     drug.Company = await db.Companies.FirstOrDefaultAsync(c => c.Id == drug.CompanyId);
-                    return View(drug);
+                    DrugViewModel drugView = _mapper.Map<Drug, DrugViewModel>(drug);
+                    return View(drugView);
                 }
             }
             return NotFound();
@@ -108,7 +115,8 @@ namespace Web.Controllers
                 {
                     SelectList companies = new SelectList(db.Companies, "Id", "Name");
                     ViewBag.Companies = companies;
-                    return View(drug);
+                    DrugViewModel drugView = _mapper.Map<Drug, DrugViewModel>(drug);
+                    return View(drugView);
                 }
                     
             }
@@ -130,7 +138,12 @@ namespace Web.Controllers
             {
                 Drug drug = await db.Drugs.FirstOrDefaultAsync(p => p.Id == id);
                 if (drug != null)
-                    return View(drug);
+                {
+                    drug.Company = await db.Companies.FirstOrDefaultAsync(c => c.Id == drug.CompanyId);
+                    DrugViewModel drugView = _mapper.Map<Drug, DrugViewModel>(drug);
+                    return View(drugView);
+                }    
+                    
             }
             return NotFound();
         }
@@ -143,6 +156,7 @@ namespace Web.Controllers
                 Drug drug = await db.Drugs.FirstOrDefaultAsync(p => p.Id == id);
                 if (drug != null)
                 {
+
                     db.Drugs.Remove(drug);
                     await db.SaveChangesAsync();
                     return RedirectToAction("Index");
@@ -150,5 +164,10 @@ namespace Web.Controllers
             }
             return NotFound();
         }
+
+
+
+
+
     }
 }

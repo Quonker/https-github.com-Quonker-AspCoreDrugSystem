@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Web.Views.DrugStore;
 
 namespace Web.Models
 {
@@ -10,6 +11,8 @@ namespace Web.Models
     {
         public DbSet<Drug> Drugs { get; set; }
         public DbSet<Company> Companies { get; set; }
+        public DbSet<DrugStore>  DrugStores { get; set; }
+
         public DrugContext(DbContextOptions<DrugContext> options)
             : base(options)
         {
@@ -34,7 +37,8 @@ namespace Web.Models
 
             modelBuilder.Entity<Company>().HasData(new Company[] { medtronic, cw, abbott, baxter, romfarm });
             modelBuilder.Entity<Drug>().HasData(new Drug[] { drug1, drug2, drug3 });
-            base.OnModelCreating(modelBuilder);
+
+          //  base.OnModelCreating(modelBuilder);
 
         }
     }

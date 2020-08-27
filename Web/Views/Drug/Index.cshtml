@@ -1,4 +1,4 @@
-﻿@using Web.Models
+﻿@using Web.ViewModels
 @{
     ViewData["Title"] = "Drug List";
 }
@@ -59,7 +59,7 @@
                asp-route-company="@(Model.FilterViewModel.SelectedCompany)">Company</a>
         </th>
     </tr>
-    @foreach (Drug d in Model.Drugs)
+    @foreach (DrugViewModel d in Model.Drugs)
     {
         <tr>
     

@@ -1,4 +1,4 @@
-﻿@model Web.Models.Drug
+﻿@model Web.ViewModels.DrugViewModel
 @{
     ViewBag.Title = "Добавление пользователя";
 }
@@ -17,12 +17,6 @@
         </div>
 
         <div class="form-group row">
-            <label asp-for="NonProprietaryName" class="control-label col-12">Non proprietary name</label>
-            <input type="text" asp-for="NonProprietaryName" class="form-control col-md-10" />
-            <span asp-validation-for="NonProprietaryName" class="text-danger col-md-2"></span>
-        </div>
-
-        <div class="form-group row">
             <label asp-for="UmageUrl" class="control-label col-12">Image URL</label>
             <input type="url"  asp-for="UmageUrl" class="form-control col-md-10" />
             <span asp-validation-for="UmageUrl" class="text-danger col-md-2"></span>
@@ -34,90 +28,7 @@
             <span asp-validation-for="Description" class="text-danger col-md-2"></span>
         </div>
 
-        <div class="form-group row">
-            <label asp-for="Composition" class="control-label col-12">Composition</label>
-            <textarea asp-for="Composition" class="form-control col-md-10" > </textarea>
-            <span asp-validation-for="Composition" class="text-danger col-md-2"></span>
-        </div>
-
-        <div class="form-group row">
-            <label asp-for="PharmacotherapeuticGroup" class="control-label col-12">PharmacotherapeuticGroup</label>
-            <input type="text"  asp-for="PharmacotherapeuticGroup" class="form-control col-md-10" />
-            <span asp-validation-for="PharmacotherapeuticGroup" class="text-danger col-md-2"></span>
-        </div>
-
-        <div class="form-group row">
-            <label asp-for="PharmacotherapeuticProperties" class="control-label col-12">PharmacotherapeuticProperties</label>
-            <textarea asp-for="PharmacotherapeuticProperties" class="form-control col-md-10"></textarea>
-            <span asp-validation-for="PharmacotherapeuticProperties" class="text-danger col-md-2"></span>
-        </div>
-
-        <div class="form-group row">
-            <label asp-for="CodeATX" class="control-label col-12">CodeATX</label>
-            <input type="text" asp-for="CodeATX" class="form-control col-md-10" />
-            <span asp-validation-for="CodeATX" class="text-danger col-md-2"></span>
-        </div>
-
-        <div class="form-group row">
-            <label asp-for="ClinicalPharmacology" class="control-label col-12">ClinicalPharmacology</label>
-            <textarea asp-for="ClinicalPharmacology" class="form-control col-md-10" ></textarea>
-            <span asp-validation-for="ClinicalPharmacology" class="text-danger col-md-2"></span>
-        </div>
-
-        <div class="form-group row">
-            <label asp-for="Indications" class="control-label col-12">Indications</label>
-            <textarea asp-for="Indications" class="form-control col-md-10" ></textarea>
-            <span asp-validation-for="Indications" class="text-danger col-md-2"></span>
-        </div>
-
-        <div class="form-group row">
-            <label asp-for="Usage" class="control-label col-12">Usage</label>
-            <textarea asp-for="Usage" class="form-control col-md-10" ></textarea>
-            <span asp-validation-for="Usage" class="text-danger col-md-2"></span>
-        </div>
-        <div class="form-group row">
-            <label asp-for="Contraindications" class="control-label col-12">Contraindications</label>
-            <textarea asp-for="Contraindications" class="form-control col-md-10" ></textarea>
-            <span asp-validation-for="Contraindications" class="text-danger col-md-2"></span>
-        </div>
-        <div class="form-group row">
-            <label asp-for="Warnings" class="control-label col-12">Warnings</label>
-            <textarea asp-for="Warnings" class="form-control col-md-10" ></textarea>
-            <span asp-validation-for="Warnings" class="text-danger col-md-2"></span>
-        </div>
-        <div class="form-group row">
-            <label asp-for="Precautions" class="control-label col-12">Precautions</label>
-            <textarea asp-for="Precautions" class="form-control col-md-10" ></textarea>
-            <span asp-validation-for="Precautions" class="text-danger col-md-2"></span>
-        </div>
-        <div class="form-group row">
-            <label asp-for="AdverseReactions" class="control-label col-12">AdverseReactions</label>
-            <textarea asp-for="AdverseReactions" class="form-control col-md-10" ></textarea>
-            <span asp-validation-for="AdverseReactions" class="text-danger col-md-2"></span>
-        </div>
-        <div class="form-group row">
-            <label asp-for="Dependence" class="control-label col-12">Dependence</label>
-            <textarea asp-for="Dependence" class="form-control col-md-10" ></textarea>
-            <span asp-validation-for="Dependence" class="text-danger col-md-2"></span>
-        </div>
-        <div class="form-group row">
-            <label asp-for="Overdosage" class="control-label col-12">Overdosage</label>
-            <textarea asp-for="Overdosage" class="form-control col-md-10" ></textarea>
-            <span asp-validation-for="Overdosage" class="text-danger col-md-2"></span>
-        </div>
-        <div class="form-group row">
-            <label asp-for="Dosage" class="control-label col-12">Dosage</label>
-            <textarea asp-for="Dosage" class="form-control col-md-10" ></textarea>
-            <span asp-validation-for="Dosage" class="text-danger col-md-2"></span>
-        </div>
-        <div class="form-group row">
-            <label asp-for="HowSupplied" class="control-label col-12">HowSupplied</label>
-            <textarea asp-for="HowSupplied" class="form-control col-md-10" ></textarea>
-            <span asp-validation-for="HowSupplied" class="text-danger col-md-2"></span>
-        </div>
-
-
-
+        
         <div class="form-group col-md-10">
             <input type="submit" value="submit" class="btn btn-success justify-content-xl-center" />
         </div>

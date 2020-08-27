@@ -1,76 +1,28 @@
-﻿@model Web.Models.Drug
+﻿@model Web.ViewModels.DrugViewModel
 @{
     ViewBag.Title = "Удаление пользователя";
 }
 
     <div>
-        <div class="row">
-            <div class="col-lg-4">
-                <img src="@Model.UmageUrl" class="card-img " />
-            </div>
 
-            <div class="col-lg-8">
+                <img src="@Model.UmageUrl" class="card-img " />
+
                 <dl class="dl-horizontal">
                     <dt>Tradename</dt>
                     <dd>@Model.Tradename</dd>
 
-                    <dt>Non proprietary name</dt>
-                    <dd>@Model.NonProprietaryName</dd>
+ 
 
                     <dt>Company</dt>
                     <dd>@Model.Company.Name</dd>
 
                 </dl>
-            </div>
-        </div>
+
         <dl class="dl-horizontal">
             <dt>Description</dt>
             <dd>@Model.Description</dd>
 
-            <dt>Composition</dt>
-            <dd>@Model.Composition</dd>
-
-            <dt>PharmacotherapeuticGroup</dt>
-            <dd>@Model.PharmacotherapeuticGroup</dd>
-
-            <dt>PharmacotherapeuticProperties</dt>
-            <dd>@Model.PharmacotherapeuticProperties</dd>
-
-            <dt>CodeATX</dt>
-            <dd>@Model.CodeATX</dd>
-
-            <dt>ClinicalPharmacology</dt>
-            <dd>@Model.ClinicalPharmacology</dd>
-
-            <dt>Indications</dt>
-            <dd>@Model.Indications</dd>
-
-            <dt>Usage</dt>
-            <dd>@Model.Usage</dd>
-
-            <dt>Contraindications</dt>
-            <dd>@Model.Contraindications</dd>
-
-            <dt>Warnings</dt>
-            <dd>@Model.Warnings</dd>
-
-            <dt>Precautions</dt>
-            <dd>@Model.Precautions</dd>
-
-            <dt>AdverseReactions</dt>
-            <dd>@Model.AdverseReactions</dd>
-
-            <dt>Dependence</dt>
-            <dd>@Model.Dependence</dd>
-
-            <dt>Overdosage</dt>
-            <dd>@Model.Overdosage</dd>
-
-            <dt>Dosage</dt>
-            <dd>@Model.Dosage</dd>
-
-            <dt>HowSupplied</dt>
-            <dd>@Model.HowSupplied</dd>
+            
 
         </dl>
 
