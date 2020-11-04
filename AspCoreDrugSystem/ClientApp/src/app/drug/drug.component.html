@@ -1,0 +1,7 @@
+<ng-container *ngIf="(drug$ | async) as drug; else loading">
+
+    <h1>{{ drug.tradename }}</h1>
+
+  
+  </ng-container>
+  <ng-template #loading>Loading…</ng-template>
